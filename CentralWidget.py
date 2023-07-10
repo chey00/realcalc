@@ -6,7 +6,10 @@ class CentralWidget(QTabWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.data = QLCDNumber(self)
+        self.lcd_number = QLCDNumber(self)
+
+        self.value_as_string = ""
+        self.last_value_as_string = "0"
 
         self.button_0 = QPushButton("0")
         self.button_1 = QPushButton("1")
@@ -26,12 +29,22 @@ class CentralWidget(QTabWidget):
         self.button_multiply = QPushButton("/")
         self.button_equal = QPushButton("=")
 
-        self.button_0.pressed.connect(self.handel)
+        self.button_0.pressed.connect(self.handle_digit_0)
+        self.button_1.pressed.connect(self.handle_digit_1)
+        self.button_2.pressed.connect(self.handle_digit_2)
+        self.button_3.pressed.connect(self.handle_digit_3)
+        self.button_4.pressed.connect(self.handle_digit_4)
+        self.button_5.pressed.connect(self.handle_digit_5)
+        self.button_6.pressed.connect(self.handle_digit_6)
+        self.button_7.pressed.connect(self.handle_digit_7)
+        self.button_8.pressed.connect(self.handle_digit_8)
+        self.button_9.pressed.connect(self.handle_digit_9)
+        self.button_comma.pressed.connect(self.handle_comma)
 
         layout = QGridLayout(self)
         self.setLayout(layout)
 
-        layout.addWidget(self.data, 1, 1, 1, 4)
+        layout.addWidget(self.lcd_number, 1, 1, 1, 4)
 
         layout.addWidget(self.button_7, 2, 1)
         layout.addWidget(self.button_8, 2, 2)
@@ -54,5 +67,56 @@ class CentralWidget(QTabWidget):
         layout.addWidget(self.button_divide, 5, 4)
 
     @pyqtSlot()
-    def handel(self):
-        pass
+    def handle_digit_0(self):
+        self.value_as_string += "0"
+        self.lcd_number.display(self.value_as_string)
+
+    @pyqtSlot()
+    def handle_digit_1(self):
+        self.value_as_string += "1"
+        self.lcd_number.display(self.value_as_string)
+
+    @pyqtSlot()
+    def handle_digit_2(self):
+        self.value_as_string += "2"
+        self.lcd_number.display(self.value_as_string)
+
+    @pyqtSlot()
+    def handle_digit_3(self):
+        self.value_as_string += "3"
+        self.lcd_number.display(self.value_as_string)
+
+    @pyqtSlot()
+    def handle_digit_4(self):
+        self.value_as_string += "4"
+        self.lcd_number.display(self.value_as_string)
+
+    @pyqtSlot()
+    def handle_digit_5(self):
+        self.value_as_string += "5"
+        self.lcd_number.display(self.value_as_string)
+
+    @pyqtSlot()
+    def handle_digit_6(self):
+        self.value_as_string += "6"
+        self.lcd_number.display(self.value_as_string)
+
+    @pyqtSlot()
+    def handle_digit_7(self):
+        self.value_as_string += "7"
+        self.lcd_number.display(self.value_as_string)
+
+    @pyqtSlot()
+    def handle_digit_8(self):
+        self.value_as_string += "8"
+        self.lcd_number.display(self.value_as_string)
+
+    @pyqtSlot()
+    def handle_digit_9(self):
+        self.value_as_string += "9"
+        self.lcd_number.display(self.value_as_string)
+
+    @pyqtSlot()
+    def handle_comma(self):
+        self.value_as_string += "."
+        self.lcd_number.display(self.value_as_string)
