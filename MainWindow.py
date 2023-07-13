@@ -11,3 +11,4 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(tab_widget)
 
         self.setWindowTitle("Taschenrechner")
+        self.setMinimumSize(250, 300)
