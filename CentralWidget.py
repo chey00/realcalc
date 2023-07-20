@@ -12,6 +12,7 @@ class CentralWidget(QTabWidget):
         self.last_value_as_string = ""
         self.operator = ""
 
+        # Aufgabe 1
         self.button_0 = QPushButton("0")
         self.button_1 = QPushButton("1")
         self.button_2 = QPushButton("2")
@@ -22,31 +23,13 @@ class CentralWidget(QTabWidget):
         self.button_7 = QPushButton("7")
         self.button_8 = QPushButton("8")
         self.button_9 = QPushButton("9")
-        self.button_comma = QPushButton(",")
+        self.button_comma = QPushButton(".")
 
         self.button_add = QPushButton("+")
         self.button_subtract = QPushButton("-")
         self.button_divide = QPushButton("/")
         self.button_multiply = QPushButton("*")
         self.button_equal = QPushButton("=")
-
-        self.button_0.pressed.connect(self.handle_digit_0)
-        self.button_1.pressed.connect(self.handle_digit_1)
-        self.button_2.pressed.connect(self.handle_digit_2)
-        self.button_3.pressed.connect(self.handle_digit_3)
-        self.button_4.pressed.connect(self.handle_digit_4)
-        self.button_5.pressed.connect(self.handle_digit_5)
-        self.button_6.pressed.connect(self.handle_digit_6)
-        self.button_7.pressed.connect(self.handle_digit_7)
-        self.button_8.pressed.connect(self.handle_digit_8)
-        self.button_9.pressed.connect(self.handle_digit_9)
-        self.button_comma.pressed.connect(self.handle_comma)
-
-        self.button_add.pressed.connect(self.handle_add)
-        self.button_subtract.pressed.connect(self.handle_substract)
-        self.button_divide.pressed.connect(self.handle_divide)
-        self.button_multiply.pressed.connect(self.handle_multiply)
-        self.button_equal.pressed.connect(self.handle_equal)
 
         layout = QGridLayout(self)
         self.setLayout(layout)
@@ -73,92 +56,44 @@ class CentralWidget(QTabWidget):
         layout.addWidget(self.button_equal, 5, 3)
         layout.addWidget(self.button_divide, 5, 4)
 
-    @pyqtSlot()
-    def handle_digit_0(self):
-        self.current_value_as_string += "0"
-        self.lcd_number.display(self.current_value_as_string)
+        # Aufgabe 2
+        self.button_0.pressed.connect(self.handle_digits)
+        self.button_1.pressed.connect(self.handle_digits)
+        self.button_2.pressed.connect(self.handle_digits)
+        self.button_3.pressed.connect(self.handle_digits)
+        self.button_4.pressed.connect(self.handle_digits)
+        self.button_5.pressed.connect(self.handle_digits)
+        self.button_6.pressed.connect(self.handle_digits)
+        self.button_7.pressed.connect(self.handle_digits)
+        self.button_8.pressed.connect(self.handle_digits)
+        self.button_9.pressed.connect(self.handle_digits)
+        self.button_comma.pressed.connect(self.handle_digits)
+
+        # Aufgabe 3
+        self.button_add.pressed.connect(self.handle_operator)
+        self.button_subtract.pressed.connect(self.handle_operator)
+        self.button_divide.pressed.connect(self.handle_operator)
+        self.button_multiply.pressed.connect(self.handle_operator)
+
+        self.button_equal.pressed.connect(self.handle_equal)
+        
+    def echo(self, text):
+        print(text)
+        self.lcd_number.display(text)
 
     @pyqtSlot()
-    def handle_digit_1(self):
-        self.current_value_as_string += "1"
-        self.lcd_number.display(self.current_value_as_string)
+    def handle_digits(self):
+        self.current_value_as_string += self.sender().text()
+        self.echo(self.current_value_as_string)
 
     @pyqtSlot()
-    def handle_digit_2(self):
-        self.current_value_as_string += "2"
-        self.lcd_number.display(self.current_value_as_string)
+    def handle_operator(self):
+        self.operator = self.sender().text()
 
-    @pyqtSlot()
-    def handle_digit_3(self):
-        self.current_value_as_string += "3"
-        self.lcd_number.display(self.current_value_as_string)
-
-    @pyqtSlot()
-    def handle_digit_4(self):
-        self.current_value_as_string += "4"
-        self.lcd_number.display(self.current_value_as_string)
-
-    @pyqtSlot()
-    def handle_digit_5(self):
-        self.current_value_as_string += "5"
-        self.lcd_number.display(self.current_value_as_string)
-
-    @pyqtSlot()
-    def handle_digit_6(self):
-        self.current_value_as_string += "6"
-        self.lcd_number.display(self.current_value_as_string)
-
-    @pyqtSlot()
-    def handle_digit_7(self):
-        self.current_value_as_string += "7"
-        self.lcd_number.display(self.current_value_as_string)
-
-    @pyqtSlot()
-    def handle_digit_8(self):
-        self.current_value_as_string += "8"
-        self.lcd_number.display(self.current_value_as_string)
-
-    @pyqtSlot()
-    def handle_digit_9(self):
-        self.current_value_as_string += "9"
-        self.lcd_number.display(self.current_value_as_string)
-
-    @pyqtSlot()
-    def handle_comma(self):
-        self.current_value_as_string += "."
-        self.lcd_number.display(self.current_value_as_string)
-
-    @pyqtSlot()
-    def handle_add(self):
         self.last_value_as_string = self.current_value_as_string
         self.current_value_as_string = ""
-        self.operator = "+"
 
-        self.lcd_number.display(self.last_value_as_string)
-
-    @pyqtSlot()
-    def handle_substract(self):
-        self.last_value_as_string = self.current_value_as_string
-        self.current_value_as_string = ""
-        self.operator = "-"
-
-        self.lcd_number.display(self.last_value_as_string)
-
-    @pyqtSlot()
-    def handle_divide(self):
-        self.last_value_as_string = self.current_value_as_string
-        self.current_value_as_string = ""
-        self.operator = "/"
-
-        self.lcd_number.display(self.last_value_as_string)
-
-    @pyqtSlot()
-    def handle_multiply(self):
-        self.last_value_as_string = self.current_value_as_string
-        self.current_value_as_string = ""
-        self.operator = "*"
-
-        self.lcd_number.display(self.last_value_as_string)
+        self.echo(self.last_value_as_string)
 
     @pyqtSlot()
     def handle_equal(self):
@@ -177,4 +112,4 @@ class CentralWidget(QTabWidget):
 
         self.current_value_as_string = str(last_value_as_float)
 
-        self.lcd_number.display(self.current_value_as_string)
+        self.echo(self.current_value_as_string)
